@@ -4,7 +4,7 @@
  * @Author: zhao
  * @Date: 2020-12-22 11:37:28
  * @LastEditors: zhao
- * @LastEditTime: 2020-12-22 15:23:23
+ * @LastEditTime: 2020-12-24 11:43:18
 -->
 <template>
     <div>
@@ -80,11 +80,11 @@
             </aside>
             <main class="index-main">
                 <el-row :gutter="20" style="margin-bottom:20px;">
-                    <el-col :span="8">
-                        <el-input placeholder="请输入" size="small"></el-input>
+                    <el-col :span="8" class="flex-row">
+                        <label for="name">姓名：</label><el-input name="name" placeholder="请输入" size="small"></el-input>
                     </el-col>
-                    <el-col :span="8">
-                        <el-input placeholder="请输入" size="small"></el-input>
+                    <el-col :span="8" class="flex-row">
+                        <label for="num">编号：</label><el-input name='num' placeholder="请输入" size="small"></el-input>
                     </el-col>
                     <el-col :span="8">
                         <el-button type="primary" size="small">搜索</el-button>
@@ -135,6 +135,8 @@
                     <span style="color:var(--success-color);margin-right:20px;">success</span>
                     <span style="color:var(--info-color);margin-right:20px;">info</span>
                 </div>
+                <div>count: {{count}}</div>
+                <el-button type="primary" @click="increment">increment</el-button>
             </main>
         </div>
 
@@ -194,7 +196,15 @@ export default {
     created(){
         this.changeTheme();
     },
+    computed:{
+        count(){
+            return this.$store.state.count
+        }
+    },
     methods: {
+        increment(){
+            this.$store.commit('increment')
+        },
         changeTheme(color){
             if(color){
                 transferTheme({primary: color});
@@ -237,6 +247,13 @@ aside{
     width: calc(100vw - 300px);
     padding:20px;
     box-sizing: border-box;
+}
+.flex-row{
+    display: flex;
+    align-items: center;
+}
+.flex-row label{
+    flex:100px;
 }
 .index-row{
     display: flex;

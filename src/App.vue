@@ -4,7 +4,7 @@
  * @Author: zhao
  * @Date: 2020-12-22 11:16:09
  * @LastEditors: zhao
- * @LastEditTime: 2020-12-22 11:54:43
+ * @LastEditTime: 2020-12-23 11:22:26
 -->
 <template>
   <div id="app">
@@ -23,7 +23,20 @@ export default {
   components: {
     // HelloWorld
     IndexContent
-  }
+  },
+  created(){
+      if(window.localStorage.getItem('count')){
+          this.$store.replaceState(Object.assign({}, this.$store.state, {count:window.localStorage.getItem('count')}))
+      }
+      window.addEventListener('beforeunload',()=>{
+          console.log('beforeunload', this.$store.state.count);
+          window.localStorage.setItem('count',this.$store.state.count);
+      })
+  },
+//   beforeUnload(){
+//       console.log('beforeunload');
+//       alert('beforeunload')
+//   }
 }
 </script>
 
